@@ -208,7 +208,8 @@
     }
 
 
-    /* ===== Botón flotante de WhatsApp ITARTAROS ===== */
+/* ===== Botón flotante de WhatsApp ITARTAROS ===== */
+
 .whatsapp-container {
   position: fixed;
   bottom: 20px;
@@ -235,6 +236,7 @@
   align-items: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .whatsapp-float:hover {
@@ -243,7 +245,6 @@
   box-shadow: 0 6px 14px rgba(37, 211, 102, 0.5);
 }
 
-/* Ícono */
 .whatsapp-float i {
   color: #fff;
 }
@@ -281,7 +282,7 @@
     height: 55px;
     font-size: 28px;
   }
-
+}
   /* En móviles la etiqueta siempre se muestra debajo */
   .whatsapp-label {
     opacity: 1;
@@ -289,9 +290,8 @@
     font-size: 13px;
     padding: 5px 10px;
   }
-}
 
-  </style>
+ </style>
 </head>
 <body>
 
@@ -327,15 +327,17 @@
 
   </div>
 
-
   <!-- Botón flotante de WhatsApp -->
 <div class="whatsapp-container">
-  <a href="https://wa.me/573502629263?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20ITARTAROS%20🍽️" 
-     class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat de WhatsApp">
-     <i class="fab fa-whatsapp"></i>
+  <a href="https://wa.me/573502629263?text=%C2%A1Hola!%20%F0%9F%91%8B%0AMi%20nombre%20es%20[Tu%20nombre].%0A%0A-%20Presentaci%C3%B3n:%20Estoy%20[en%20el%20restaurante%20/%20haciendo%20un%20pedido%20para%20llevar%20/%20reservando%20mesa].%0A-%20Mesa:%20Me%20encuentro%20en%20la%20mesa%20[n%C3%BAmero%20o%20descripci%C3%B3n]%20/%20deseo%20una%20mesa%20[tipo%20o%20ubicaci%C3%B3n%20preferida].%0A-%20Platillos:%20Quisiera%20pedir%20[nombre%20de%20los%20platillos%20o%20dejar%20que%20recomienden%20algo].%0A-%20Bebidas:%20Para%20acompa%C3%B1ar,%20me%20gustar%C3%ADa%20[bebida%20o%20tipo%20de%20bebida].%0A%0AMuchas%20gracias%20por%20la%20atenci%C3%B3n,%20quedo%20pendiente.%20%F0%9F%8D%B7" 
+     target="_blank" 
+     class="whatsapp-float" 
+     title="Escríbenos por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
   </a>
-  <span class="whatsapp-label">¡Haz tu pedido!</span>
+  <span class="whatsapp-label">Contáctanos</span>
 </div>
+
 
 
   <footer>
