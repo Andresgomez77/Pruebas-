@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ITARTAROS — Carta (Alta Calidad)</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="Mesa de trabajo 1.png" type="image/png">
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --max-width:1100px;
+      --accent: #a32a29;
+      --bg: #f7f7f7;
+      --card-bg: rgba(255,255,255,0.95);
+      --shadow-lg: 0 12px 30px rgba(10,10,10,0.12);
+      --radius: 12px;
+      --gutter: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: var(--bg);
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    /* HEADER: visible */
+    header{
+      width:100%;
+      min-height:140px;
+      max-height:40vh;
+      background: url("img/fondo de itartaros.jpg") center/cover no-repeat;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px;
+      box-shadow: inset 0 -20px 36px rgba(0,0,0,0.14);
+      margin-bottom: 14px;
+    }
+
+    /* CONTENEDOR */
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      padding: 0 16px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+    }
+
+    .pdf-header {
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      margin-top: 0;
+    }
+
+    /* ==== PRESERVADO: diseño de la caja de texto ==== */
+    .title-box{
+      width:100%;
+      max-width:720px;
+      padding:12px 14px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.99), var(--card-bg));
+      box-shadow: var(--shadow-lg);
+      border-left: 6px solid var(--accent);
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+    }
+
+    .title-box h1{
+      margin:0;
+      font-family: "Cinzel", serif;
+      font-size:1.05rem;
+      color:#121212;
+      line-height:1.05;
+      font-weight:700;
+    }
+    .title-box p{
+      margin:0;
+      font-size:0.9rem;
+      color:#5b5b5b;
+      font-weight:600;
+    }
+
+    /* CONTROLES - prev | page-info | next */
+    #controls {
+      width:100%;
+      max-width:720px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px;
+      background: rgba(255,255,255,0.96);
+      border-radius:10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    }
+
+    .btn {
+      padding: 0.6rem 0.9rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight:700;
+      cursor:pointer;
+      transition: transform .12s ease;
+      background: white;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      min-width: 120px;
+    }
+    .btn:active{ transform: translateY(1px) }
+
+    .btn-prev { color: white; background: #009246; }
+    .btn-next { color: white; background: #ce2b37; }
+
+    #page-info {
+      margin: 0 12px;
+      flex: 1;
+      text-align: center;
+      font-weight:700;
+      color:#333;
+      min-width: 100px;
+    }
+
+    /* VISOR PDF (canvas) */
+    #pdf-viewer {
+      width:100%;
+      display:flex;
+      justify-content:center;
+      margin-top: 6px;
+      padding: 16px 0 24px;
+      background: transparent;
+    }
+
+    canvas{
+      display:block;
+      max-width:95%;
+      height:auto;
+      border-radius:8px;
+      box-shadow:0 12px 30px rgba(10,10,10,0.08);
+      background:#fff;
+      width:100%;
+      /* el tamaño visual lo controla CSS; la resolución real la controla canvas.width/height */
+    }
+
+    /* MOBILE: botones táctiles a los laterales, texto centrado */
+    @media (max-width:600px) {
+      header{ min-height:120px; padding:10px; margin-bottom:12px; }
+
+      .title-box{
+        padding:10px 12px;
+        border-left-width:4px;
+      }
+      .title-box h1{ font-size:1rem; }
+      .title-box p{ font-size:0.85rem; }
+
+      .btn{
+        min-width: 80px;
+        padding: 10px 12px;
+        font-size: 0.98rem;
+        border-radius: 10px;
+      }
+
+      #controls{ gap:8px; padding:10px; }
+      #page-info{ font-size:0.95rem; }
+    }
+
+    /* tablet / small desktop tweaks */
+    @media (min-width:601px) and (max-width:920px){
+      header{ min-height:140px; }
+      .title-box{ max-width:92%; padding:12px 14px; }
+      #controls{ max-width:92%; gap:8px; }
+      .btn{ min-width:110px; padding:10px 12px; }
+      #page-info{ min-width:110px; }
+    }
+
+    /* FOOTER */
+    footer{
+      margin-top: 12px;
+      padding: 12px;
+      background: #111;
+      color: #fff;
+      text-align:center;
+      width:100%;
+      margin-bottom:24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER visible -->
+  <header role="banner" aria-label="Encabezado ITARTAROS"></header>
+
+  <!-- CONTENEDOR -->
+  <div class="container">
+
+    <div class="pdf-header" role="region" aria-label="Encabezado del visor de la carta">
+
+      <!-- Caja de texto -->
+      <div class="title-box" role="group" aria-label="Información de la carta">
+        <h1>Menú Restaurante ITARTAROS</h1>
+        <p>Disfruta nuestra selección especial de entradas, platos fuertes, bebidas y postres</p>
+      </div>
+
+      <!-- Barra de controles: prev | indicador centrado | next -->
+      <div id="controls" role="toolbar" aria-label="Controles del visor">
+        <button id="prev" class="btn btn-prev" aria-label="Página anterior">⬅ Página anterior</button>
+
+        <span id="page-info" aria-live="polite">Página 1 de ?</span>
+
+        <button id="next" class="btn btn-next" aria-label="Página siguiente">Página siguiente ➡</button>
+      </div>
+    </div>
+
+    <!-- VISOR -->
+    <div id="pdf-viewer" role="main" aria-label="Visor del PDF">
+      <!-- canvas se genera por JavaScript -->
+      <canvas id="pdf-canvas" aria-label="Canvas del PDF"></canvas>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2025 ITARTAROS — Todos los derechos reservados</p>
+  </footer>
+
+  <!-- PDF.js (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+  <script>
+    if (!window['pdfjsLib']) {
+      console.error("pdf.js no se cargó. Verifica conexión a CDN.");
+      document.getElementById('pdf-viewer').innerText = "Error: no se pudo cargar el visor PDF (pdf.js).";
+    } else {
+      // RUTA EXACTA DEL PDF
+      const url = "Cartas Final 2025 itartaros 122025 -9.pdf";
+
+      // Worker (CDN)
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
+
+      const canvas = document.getElementById('pdf-canvas');
+      const ctx = canvas.getContext('2d');
+      const viewer = document.getElementById("pdf-viewer");
+      const pageInfo = document.getElementById("page-info");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+
+      let pdfDoc = null;
+      let currentPage = 1;
+      let rendering = false;
+      let pendingPage = null;
+
+      // Limit de escala para no saturar dispositivos (ajusta si quieres)
+      const MAX_RENDER_SCALE = 3.0;
+
+      // Calcula escala base para que la página encaje al contenedor
+      function computeBaseScale(page) {
+        const containerWidth = Math.min(document.querySelector('.container').clientWidth, 960);
+        const viewportUnscaled = page.getViewport({ scale: 1 });
+        const desiredWidth = Math.min(containerWidth * 0.96, 900); // ocupar ~96% del contenedor
+        const baseScale = desiredWidth / viewportUnscaled.width;
+        return baseScale;
+      }
+
+      // Render con alta calidad: multiplicamos por devicePixelRatio y limitamos
+      function renderPage(pageNum) {
+        rendering = true;
+        pdfDoc.getPage(pageNum).then(page => {
+          // base escala responsiva
+          let baseScale = computeBaseScale(page);
+
+          // multiplicador por densidad de pantalla (mejora nitidez en pantallas retina)
+          const dpr = Math.max(window.devicePixelRatio || 1, 1);
+          let targetScale = baseScale * dpr;
+
+          // limitar la escala efectiva
+          if (targetScale > MAX_RENDER_SCALE) targetScale = MAX_RENDER_SCALE;
+
+          const viewport = page.getViewport({ scale: targetScale });
+
+          // Ajustar el tamaño del canvas en píxeles reales
+          canvas.width = Math.round(viewport.width);
+          canvas.height = Math.round(viewport.height);
+
+          // Establecer tamaño CSS para que se ajuste al contenedor visualmente
+          canvas.style.width = Math.min(document.querySelector('.container').clientWidth * 0.96, 900) + 'px';
+          canvas.style.height = (canvas.height * (parseFloat(canvas.style.width) / canvas.width)) + 'px'; // mantiene proporción
+
+          const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+          };
+
+          const renderTask = page.render(renderContext);
+          renderTask.promise.then(() => {
+            rendering = false;
+            if (pendingPage !== null) {
+              const next = pendingPage;
+              pendingPage = null;
+              renderPage(next);
+            }
+          }).catch(err => {
+            console.error('Error en renderTask:', err);
+            rendering = false;
+          });
+
+          pageInfo.textContent = `Página ${pageNum} de ${pdfDoc.numPages}`;
+          updateButtons();
+        }).catch(err => {
+          console.error('Error al obtener página:', err);
+          pageInfo.textContent = "Error mostrando la página";
+          rendering = false;
+        });
+      }
+
+      function queueRender(pageNum) {
+        if (rendering) {
+          pendingPage = pageNum;
+        } else {
+          renderPage(pageNum);
+        }
+      }
+
+      function updateButtons() {
+        if (!pdfDoc) {
+          prevBtn.disabled = nextBtn.disabled = true;
+          prevBtn.style.opacity = nextBtn.style.opacity = 0.6;
+          return;
+        }
+        prevBtn.disabled = currentPage <= 1;
+        nextBtn.disabled = currentPage >= pdfDoc.numPages;
+        prevBtn.style.opacity = prevBtn.disabled ? 0.6 : 1;
+        nextBtn.style.opacity = nextBtn.disabled ? 0.6 : 1;
+      }
+
+      prevBtn.addEventListener('click', () => {
+        if (!pdfDoc || currentPage <= 1) return;
+        currentPage--;
+        queueRender(currentPage);
+      });
+      nextBtn.addEventListener('click', () => {
+        if (!pdfDoc || currentPage >= pdfDoc.numPages) return;
+        currentPage++;
+        queueRender(currentPage);
+      });
+
+      // Teclas del teclado
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+      });
+
+      // Cargar el documento
+      pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
+        pageInfo.textContent = `Página ${currentPage} de ${pdfDoc.numPages}`;
+        updateButtons();
+        queueRender(currentPage);
+      }).catch(err => {
+        console.error("No se pudo cargar el PDF:", err);
+        const errEl = document.createElement('div');
+        errEl.textContent = "No se pudo cargar la carta. Verifica la ruta del PDF.";
+        errEl.style.padding = "18px";
+        errEl.style.textAlign = "center";
+        errEl.style.color = "#a32a29";
+        viewer.appendChild(errEl);
+        pageInfo.textContent = "Carta no disponible";
+        updateButtons();
+      });
+
+      // Re-render al redimensionar (debounce)
+      let rTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(rTimer);
+        rTimer = setTimeout(() => {
+          if (pdfDoc) queueRender(currentPage);
+        }, 180);
+      });
+    }
+  </script>
+</body>
+</html>
