@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" width="120" height="80" role="img" aria-label="Queso">
+  <title>Queso</title>
+  <defs>
+    <style>
+      .r{ fill:#f8d46a; stroke:#d6b84a; stroke-width:2 }
+      .hole{ fill:#f1c93e }
+    </style>
+  </defs>
+  <path class="r" d="M6 60 L30 10 L114 38 L102 66 Z"/>
+  <circle class="hole" cx="45" cy="40" r="6"/>
+  <circle class="hole" cx="70" cy="48" r="4"/>
+  <circle class="hole" cx="85" cy="36" r="3"/>
+</svg>

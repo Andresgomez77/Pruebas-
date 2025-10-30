@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 120" width="140" height="120" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Ilustración de tomate">
+<title>Tomate</title>
+<defs>
+<style>
+.tom { fill: #e64b3b; stroke:#c63a2b; stroke-width:2; }
+.leaf { fill: #6aa84f; stroke:#568a3a; stroke-width:1.5; }
+.shine { fill: rgba(255,255,255,0.35); }
+</style>
+</defs>
+
+
+<!-- tomate -->
+<circle cx="70" cy="64" r="36" class="tom" />
+<!-- hojas -->
+<path class="leaf" d="M70 30 C60 26, 48 28, 50 36 C52 44, 68 40, 70 38" />
+<path class="leaf" d="M86 32 C96 28, 108 30, 106 38 C104 46, 90 42, 86 38" />
+<!-- brillo -->
+<ellipse cx="88" cy="52" rx="10" ry="6" class="shine" />
+</svg>
