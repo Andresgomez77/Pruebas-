@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ITARTAROS — Carta (Alta Calidad)</title>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <!-- Favicon -->
   <link rel="icon" href="Mesa de trabajo 1.png" type="image/png">
 
@@ -204,6 +206,91 @@
       width:100%;
       margin-bottom:24px;
     }
+
+
+    /* ===== Botón flotante de WhatsApp ITARTAROS ===== */
+.whatsapp-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Botón principal */
+.whatsapp-float {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(145deg, #a32a29, #000);
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  background: linear-gradient(145deg, #25D366, #128C7E);
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.5);
+}
+
+/* Ícono */
+.whatsapp-float i {
+  color: #fff;
+}
+
+/* Etiqueta del botón */
+.whatsapp-label {
+  background: rgba(0, 0, 0, 0.85);
+  color: #c9a227;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+/* Mostrar etiqueta al pasar el cursor (solo escritorio) */
+.whatsapp-container:hover .whatsapp-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Ajustes responsivos ===== */
+@media (max-width: 768px) {
+  .whatsapp-container {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .whatsapp-float {
+    width: 55px;
+    height: 55px;
+    font-size: 28px;
+  }
+
+  /* En móviles la etiqueta siempre se muestra debajo */
+  .whatsapp-label {
+    opacity: 1;
+    transform: translateY(0);
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -239,6 +326,17 @@
     </div>
 
   </div>
+
+
+  <!-- Botón flotante de WhatsApp -->
+<div class="whatsapp-container">
+  <a href="https://wa.me/573502629263?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20ITARTAROS%20🍽️" 
+     class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat de WhatsApp">
+     <i class="fab fa-whatsapp"></i>
+  </a>
+  <span class="whatsapp-label">¡Haz tu pedido!</span>
+</div>
+
 
   <footer>
     <p>© 2025 ITARTAROS — Todos los derechos reservados</p>
